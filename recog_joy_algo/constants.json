@@ -16,6 +16,7 @@
   "OpenCV": {
     "x_dim": 640,
     "y_dim": 360,
+    "frame_rate": 10,
     "max_pixel": 255,
     "canny_min": 100,
     "canny_max": 120,
