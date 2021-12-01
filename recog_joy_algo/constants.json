@@ -1,0 +1,34 @@
+{
+  "MQTT": {
+    "username": "jm03",
+    "password": 191900103,
+    "topic": "channel",
+    "ip": "10.252.243.158"
+  },
+  "MySQL": {
+    "ip": "10.252.242.117",
+    "username": "jm_03",
+    "password": "iee3031"
+  },
+  "SSC32": {
+    "mode": 1
+  },
+  "OpenCV": {
+    "x_dim": 640,
+    "y_dim": 360,
+    "max_pixel": 255,
+    "canny_min": 100,
+    "canny_max": 120,
+    "prev_c_x": 0,
+    "prev_c_y": 0,
+    "frames_before_refresh": 3,
+    "magnitude_lower_boundary": 0.004,
+    "magnitude_upper_boundary": 0.025
+  },
+  "ConveyorBelt": {
+    "PWM_pin": 14,
+    "high_dc": 90,
+    "low_dc": 50,
+    "stop_dc": 0
+  }
+}

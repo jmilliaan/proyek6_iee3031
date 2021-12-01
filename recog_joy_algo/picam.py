@@ -6,6 +6,8 @@ import time
 import RPi.GPIO as GPIO
 from mysql_proyek6 import DBConnection
 import ssc32
+import constants
+
 dbconn = DBConnection()
 
 username = "jm03"
@@ -31,7 +33,6 @@ pwm = GPIO.PWM(controlpin, 100)
 
 dc = 90
 
-cycle_count = 0
 frame_count = 0
 reset_count = 0
 
@@ -61,11 +62,12 @@ frames_before_refresh = 3
 magnitude_threshold = 0.004
 max_magnitude_threshold = 0.025
 
+prev_img = []
+
+
 def matrix_sum(mat):
-    bigmat = []
     arrsum = 0
     y_size = len(mat)
-    x_size = len(mat[0])
     for i in range(y_size):
         arrsum += sum(mat[i])
     return arrsum / max_frame_difference
@@ -74,7 +76,7 @@ def matrix_sum(mat):
 camera = PiCamera()
 camera.resolution = (x_dim, y_dim)
 camera.framerate = 10
-rawcap = PiRGBArray(camera, size = (x_dim, y_dim))
+rawcap = PiRGBArray(camera, size=(x_dim, y_dim))
 time.sleep(0.5)
 
 for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True):
@@ -82,9 +84,9 @@ for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True
     frame_count += 1
     if frame_count <= 1:
         prev_img = Frame(frame.array)
-                
+
     img = Frame(frame.array)
-    
+
     diff = cv2.subtract(img.blur(2), prev_img.blur(2))
     canny_diff = cv2.Canny(diff, canny_min, canny_max)
     t_res, thresh = cv2.threshold(canny_diff, 127, 255, 0)
@@ -92,7 +94,7 @@ for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True
     thresh_mag = matrix_sum(thresh)
 
     moments = cv2.moments(thresh)
-    
+
     if magnitude_threshold < thresh_mag < max_magnitude_threshold:
         if moments["m00"] != 0:
             c_x = int(moments["m10"] / moments["m00"])
@@ -112,7 +114,7 @@ for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True
             print(" > set dc to 60")
             dc = 60
             print("  >> close to center")
-            if lower_bound_hard < c_x <upper_bound_hard:
+            if lower_bound_hard < c_x < upper_bound_hard:
                 dc = 0
                 dbconn.execute_commit("")
                 print("  >> at center")
@@ -123,7 +125,7 @@ for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True
                 print(" >>> robot moving, please wait...")
                 time.sleep(1)
                 print(" >>> item picked up!")
-                
+
         else:
             print(" > set dc to 80")
             dc = 90
@@ -136,10 +138,9 @@ for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True
     cv2.imshow("Difference Frame", thresh)
     prev_c_x, prev_c_y = c_x, c_y
 
-    
     rawcap.truncate(0)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    
+
 cv2.destroyAllWindows()
 exit()
