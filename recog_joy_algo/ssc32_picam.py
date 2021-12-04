@@ -55,14 +55,14 @@ def grab_position(ssc_obj):
     move_ssc(ssc_obj, 3, 1100, dur)
     time.sleep(dur / 1000)
     move_ssc(ssc_obj, 4, 1000, dur)
-    time.sleep(dur / 1000)
+    time.sleep(2 * dur / 1000)
     move_ssc(ssc_obj, 4, 2400, dur)
 
 
 def drop_position(ssc_obj):
     dur = 800
     print("||| SSC32 DROP POSITION |||")
-    move_ssc(ssc_obj, 0, 2400, dur)
+    move_ssc(ssc_obj, 0, 1500, dur)
     move_ssc(ssc_obj, 1, 1700, dur)
     move_ssc(ssc_obj, 2, 1300, dur)
     move_ssc(ssc_obj, 3, 1350, dur)
