@@ -11,7 +11,9 @@
     "password": "iee3031"
   },
   "SSC32": {
-    "mode": 1
+    "mode": 1,
+    "serial_port": "/dev/ttyUSB0",
+    "baud_rate": 9600
   },
   "OpenCV": {
     "x_dim": 640,

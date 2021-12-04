@@ -19,6 +19,8 @@ mysql_ip = mysql["ip"]
 # SSC32 CONSTANTS
 ssc32 = constants["SSC32"]
 ssc32_mode = ssc32["mode"]
+ssc32_serial_port = ssc32["serial_port"]
+ssc32_baud_rate = ssc32["baud_rate"]
 
 # OPENCV CONSTANTS
 cv = constants["OpenCV"]

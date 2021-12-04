@@ -29,9 +29,9 @@ ch3_prev = 0
 ch4_prev = 0
 
 
-def move_ssc(servo, position, duration):
-    ssc[servo].position = position
-    ssc.commit(time=duration)
+def move_ssc(ssc_obj, servo, position, duration):
+    ssc_obj[servo].position = position
+    ssc_obj.commit(time=duration)
     #ssc.wait_for_movement_completion()
 
 def on_connect(client, userdata, flags, rc):
