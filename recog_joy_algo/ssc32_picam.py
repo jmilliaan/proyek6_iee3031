@@ -83,7 +83,10 @@ reset_count = 0
 prev_c_x, prev_c_y = 0, 0
 c_x, c_y = 0, 0
 if __name__ == '__main__':
-
+    reset_position(ssc)
+    time.sleep(1)
+    ready_position(ssc)
+    time.sleep(0.5)
     for frame in camera.capture_continuous(rawcap, format="bgr", use_video_port=True):
 
         pwm.start(current_dc)
@@ -132,13 +135,19 @@ if __name__ == '__main__':
                     dbconn.execute_commit("")
                     print("  >> at center")
                     print(" >>> picking up item...")
+                    
+                    grab_position(ssc)
                     time.sleep(1)
+                    
                     print(" >>> robot moving, please wait...")
-                    time.sleep(1)
+                    time.sleep(0.5)
                     print(" >>> robot moving, please wait...")
-                    time.sleep(1)
+                    time.sleep(0.5)
                     print(" >>> item picked up!")
-
+                    drop_position(ssc)
+                    time.sleep(0.5)
+                    ready_position(ssc)
+                    time.sleep(1)
             else:
                 print(" > set dc to 80")
                 current_dc = constants.conveyor_high_dc
