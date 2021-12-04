@@ -53,6 +53,7 @@ def grab_position(ssc_obj):
     move_ssc(ssc_obj, 1, 1350, dur)
     move_ssc(ssc_obj, 2, 1150, dur)
     move_ssc(ssc_obj, 3, 1100, dur)
+    time.sleep(dur)
     move_ssc(ssc_obj, 4, 1000, dur)
 
 
@@ -63,7 +64,8 @@ def drop_position(ssc_obj):
     move_ssc(ssc_obj, 1, 1700, dur)
     move_ssc(ssc_obj, 2, 1300, dur)
     move_ssc(ssc_obj, 3, 1350, dur)
-    move_ssc(ssc_obj, 4, 1000, dur)
+    time.sleep(dur)
+    move_ssc(ssc_obj, 4, 2400, dur)
 
 
 def matrix_sum(mat):
@@ -141,7 +143,7 @@ if __name__ == '__main__':
                     print(" >>> picking up item...")
                     
                     grab_position(ssc)
-                    time.sleep(1)
+                    time.sleep(2)
                     
                     print(" >>> robot moving, please wait...")
                     time.sleep(0.5)
@@ -149,9 +151,9 @@ if __name__ == '__main__':
                     time.sleep(0.5)
                     print(" >>> item picked up!")
                     drop_position(ssc)
-                    time.sleep(0.5)
+                    time.sleep(2)
                     ready_position(ssc)
-                    time.sleep(1)
+                    time.sleep(2)
             else:
                 print(" > set dc to 80")
                 current_dc = constants.conveyor_high_dc
