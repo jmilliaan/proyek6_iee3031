@@ -1,6 +1,6 @@
 import json
 
-json_file = open("constants.json")
+json_file = open("/home/pi/Desktop/proyek6_iee3031/recog_joy_algo/constants.json")
 constants = json.load(json_file)
 
 # MQTT CONSTANTS
@@ -60,3 +60,5 @@ conveyor_pwm_pin = conveyor["PWM_pin"]
 conveyor_high_dc = conveyor["high_dc"]
 conveyor_low_dc = conveyor["low_dc"]
 conveyor_stop_dc = conveyor["stop_dc"]
+
+json_file.close()
