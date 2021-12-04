@@ -53,7 +53,7 @@ def grab_position(ssc_obj):
     move_ssc(ssc_obj, 1, 1350, dur)
     move_ssc(ssc_obj, 2, 1150, dur)
     move_ssc(ssc_obj, 3, 1100, dur)
-    time.sleep(dur)
+    time.sleep(dur / 1000)
     move_ssc(ssc_obj, 4, 1000, dur)
 
 
@@ -64,7 +64,7 @@ def drop_position(ssc_obj):
     move_ssc(ssc_obj, 1, 1700, dur)
     move_ssc(ssc_obj, 2, 1300, dur)
     move_ssc(ssc_obj, 3, 1350, dur)
-    time.sleep(dur)
+    time.sleep(dur / 1000)
     move_ssc(ssc_obj, 4, 2400, dur)
 
 
@@ -141,10 +141,10 @@ if __name__ == '__main__':
                     dbconn.execute_commit("")
                     print("  >> at center")
                     print(" >>> picking up item...")
-                    
+
                     grab_position(ssc)
                     time.sleep(2)
-                    
+
                     print(" >>> robot moving, please wait...")
                     time.sleep(0.5)
                     print(" >>> robot moving, please wait...")
