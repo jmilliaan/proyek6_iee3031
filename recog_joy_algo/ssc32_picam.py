@@ -28,6 +28,7 @@ def move_ssc(ssc_obj, servo, position, duration):
 
 def reset_position(ssc_obj):
     dur = 800
+    print("||| SSC32 RESET POSITION |||")
     move_ssc(ssc_obj, 0, 1500, dur)
     move_ssc(ssc_obj, 1, 1500, dur)
     move_ssc(ssc_obj, 2, 1500, dur)
@@ -37,6 +38,7 @@ def reset_position(ssc_obj):
 
 def ready_position(ssc_obj):
     dur = 800
+    print("||| SSC32 READY POSITION |||")
     move_ssc(ssc_obj, 0, 2400, dur)
     move_ssc(ssc_obj, 1, 1700, dur)
     move_ssc(ssc_obj, 2, 1300, dur)
@@ -46,6 +48,7 @@ def ready_position(ssc_obj):
 
 def grab_position(ssc_obj):
     dur = 800
+    print("||| SSC32 GRAB POSITION |||")
     move_ssc(ssc_obj, 0, 2400, dur)
     move_ssc(ssc_obj, 1, 1350, dur)
     move_ssc(ssc_obj, 2, 1150, dur)
@@ -55,6 +58,7 @@ def grab_position(ssc_obj):
 
 def drop_position(ssc_obj):
     dur = 800
+    print("||| SSC32 DROP POSITION |||")
     move_ssc(ssc_obj, 0, 2400, dur)
     move_ssc(ssc_obj, 1, 1700, dur)
     move_ssc(ssc_obj, 2, 1300, dur)
