@@ -29,7 +29,7 @@
     "magnitude_upper_boundary": 0.025
   },
   "ConveyorBelt": {
-    "PWM_pin": 14,
+    "PWM_pin": 18,
     "high_dc": 90,
     "low_dc": 50,
     "stop_dc": 0
