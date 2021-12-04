@@ -100,8 +100,8 @@ if __name__ == '__main__':
         canny_diff = cv2.Canny(diff, constants.cv_canny_min, constants.cv_canny_max)
         t_res, thresh = cv2.threshold(canny_diff, 127, 255, 0)
 
-        # thresh_mag = matrix_sum(thresh)
-        thresh_mag = np.sum(thresh)
+        thresh_mag = matrix_sum(thresh)
+        # thresh_mag = np.sum(thresh)
         moments = cv2.moments(thresh)
 
         if constants.cv_magnitude_lower_boundary < thresh_mag < constants.cv_magnitude_upper_boundary:
@@ -153,7 +153,7 @@ if __name__ == '__main__':
                 current_dc = constants.conveyor_high_dc
 
         if frame_count % constants.cv_frames_before_refresh == 0:
-            print("--reset")
+            print("--- RESET FRAME DIFFERENCE ---")
             reset_count += 1
             prev_img = Frame(frame.array)
             c_x, c_y = 0, 0
