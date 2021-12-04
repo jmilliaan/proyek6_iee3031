@@ -55,6 +55,8 @@ def grab_position(ssc_obj):
     move_ssc(ssc_obj, 3, 1100, dur)
     time.sleep(dur / 1000)
     move_ssc(ssc_obj, 4, 1000, dur)
+    time.sleep(dur / 1000)
+    move_ssc(ssc_obj, 4, 2400, dur)
 
 
 def drop_position(ssc_obj):
@@ -66,6 +68,8 @@ def drop_position(ssc_obj):
     move_ssc(ssc_obj, 3, 1350, dur)
     time.sleep(dur / 1000)
     move_ssc(ssc_obj, 4, 2400, dur)
+    time.sleep(dur / 1000)
+    move_ssc(ssc_obj, 4, 1000, dur)
 
 
 def matrix_sum(mat):
