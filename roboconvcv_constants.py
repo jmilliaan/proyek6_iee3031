@@ -60,5 +60,6 @@ conveyor_pwm_pin = conveyor["PWM_pin"]
 conveyor_high_dc = conveyor["high_dc"]
 conveyor_low_dc = conveyor["low_dc"]
 conveyor_stop_dc = conveyor["stop_dc"]
+conveyor_frequency = conveyor["PWM_freq"]
 
 json_file.close()
