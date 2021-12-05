@@ -4,8 +4,6 @@ from picamera import PiCamera as picam
 from scipy.ndimage.filters import gaussian_filter
 import time
 import roboconvcv_constants as constants
-import numpy as np
-
 
 class Frame:
     def __init__(self, frame):

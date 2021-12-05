@@ -1,5 +1,4 @@
 import ssc32
-import roboconvcv_constants as constants
 import time
 
 

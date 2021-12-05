@@ -1,5 +1,5 @@
 import mysql.connector
-import constants
+import roboconvcv_constants as constants
 
 
 class DBConnection:
