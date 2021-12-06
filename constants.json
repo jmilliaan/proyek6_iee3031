@@ -30,8 +30,8 @@
   },
   "ConveyorBelt": {
     "PWM_pin": 18,
-    "high_dc": 90,
-    "low_dc": 50,
+    "high_dc": 80,
+    "low_dc": 40,
     "stop_dc": 0,
     "PWM_freq": 100
   }
