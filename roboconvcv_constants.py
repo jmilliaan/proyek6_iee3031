@@ -1,6 +1,6 @@
 import json
 
-json_file = open("/home/pi/Desktop/proyek6_iee3031/recog_joy_algo/constants.json")
+json_file = open("constants.json")
 constants = json.load(json_file)
 
 # MQTT CONSTANTS
