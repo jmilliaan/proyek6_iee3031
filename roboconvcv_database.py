@@ -27,7 +27,7 @@ class DBConnection:
 
     @staticmethod
     def get_time():
-        return datetime.now().strftime("%H:%M")
+        return datetime.now().strftime("%H-%M")
 
     @staticmethod
     def get_date():
@@ -69,7 +69,7 @@ class DBConnection:
         if self.connected:
             self.execute_commit(f"INSERT INTO {self.table_name}"
                                 f"(time, date, event) "
-                                f"VALUES({current_time}, {current_date}, {event});")
+                                f"VALUES('{current_time}', '{current_date}', '{event}');")
 
     def print_c(self):
         if self.connected:
