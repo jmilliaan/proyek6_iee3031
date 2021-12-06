@@ -5,11 +5,11 @@ import time
 class SSC32RoboticArm:
     def __init__(self, port, baud):
         self.default_dur = 800
-        try:
-            self.ssc = ssc32.SSC32(port, baud)
-        except:
-            print("what?")
-            pass
+        # try:
+        self.ssc = ssc32.SSC32(port, baud)
+        # except:
+        #     print("what?")
+        #     pass
 
     def move_ssc(self, servo, pos, dur):
         self.ssc[servo].position = pos
