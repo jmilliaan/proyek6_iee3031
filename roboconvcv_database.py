@@ -43,6 +43,7 @@ class DBConnection:
 
     def execute_commit(self, query):
         if self.connected:
+            self.execute("USE Proyek6_IEE3031;")
             self.c.execute(query)
             self.commit()
 
