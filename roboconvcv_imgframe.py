@@ -48,7 +48,6 @@ class Frame:
         # self.frame_magnitude = cv2.sumElems(img)
         self.frame_magnitude = self.sum_image(img)
         self.frame_moments = cv2.moments(img)
-        print("frame mag: ", self.frame_magnitude)
         if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
             if self.frame_moments["m00"] != 0:
                 self.c_x = int(self.frame_moments["m10"] / self.frame_moments["m00"])

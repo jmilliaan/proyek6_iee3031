@@ -33,7 +33,7 @@ if __name__ == '__main__':
         canny_diff = img.canny_difference(prev_img)
         c_x, c_y = img.centroid(canny_diff)
 
-        print(" > Mvmnt Mag:", img.frame_magnitude)
+        print(" > Movement Magnitude:", img.frame_magnitude)
         print(constants.cv_lower_bound,
               constants.cv_hard_lower_bound,
               c_x,
@@ -43,10 +43,10 @@ if __name__ == '__main__':
         if reset_count > 1:
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
-                print("  >> close to center")
+                print(" >> close to center")
                 if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
                     conveyor.change_dc(constants.conveyor_stop_dc)
-                    print("  >> at center")
+                    print(" >>> at center")
                     robo_arm.grab_drop_ready(2)
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
