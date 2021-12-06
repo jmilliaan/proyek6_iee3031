@@ -12,7 +12,7 @@ class SSC32RoboticArm:
         try:
             self.ssc = ssc32.SSC32(self.serial_port, self.baud_rate)
         except serial.serialutil.SerialException:
-            print(f"Port {self.serial_port} not found.}")
+            print(f"Port {self.serial_port} not found.")
             pass
 
     def move_ssc(self, servo, pos, dur):
