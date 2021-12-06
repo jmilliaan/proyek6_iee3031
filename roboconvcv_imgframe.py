@@ -42,7 +42,7 @@ class Frame:
         out = 0
         for row in src:
             out += sum(row)
-        return out
+        return out / constants.cv_max_frame_difference
 
     def centroid(self, img):
         # self.frame_magnitude = cv2.sumElems(img)
