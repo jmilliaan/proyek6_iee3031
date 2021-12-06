@@ -5,6 +5,7 @@ from scipy.ndimage.filters import gaussian_filter
 import time
 import roboconvcv_constants as constants
 
+
 class Frame:
     def __init__(self, frame):
         self.raw_frame = frame
@@ -33,7 +34,8 @@ class Frame:
 
     def canny_difference(self, prev_frame):
         diff = cv2.subtract(self.blurred, prev_frame.blurred)
-        return self.canny(diff, self.canny_min, self.canny_max)
+        # return self.canny(diff, self.canny_min, self.canny_max)
+        return diff
 
     def centroid(self, img):
         self.frame_magnitude = cv2.sumElems(img)
