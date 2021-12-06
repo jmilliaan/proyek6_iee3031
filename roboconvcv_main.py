@@ -15,7 +15,8 @@ c_x, c_y = 0, 0
 
 if __name__ == '__main__':
     db = DBConnection()
-    robo_arm = SSC32RoboticArm(constants.ssc32_serial_port, constants.ssc32_baud_rate)
+    robo_arm = SSC32RoboticArm(constants.ssc32_serial_port,
+                               constants.ssc32_baud_rate)
     conveyor = ConveyorBelt()
     camera = PiCam()
 
@@ -25,20 +26,12 @@ if __name__ == '__main__':
     for frame in camera.cam.capture_continuous(camera.raw_cap,
                                                format="bgr",
                                                use_video_port=True):
-        print(f"{frame_count}")
         if frame_count <= 1:
             prev_img = Frame(frame.array)
 
         img = Frame(frame.array)
         canny_diff = img.canny_difference(prev_img)
         c_x, c_y = img.centroid(canny_diff)
-
-        print(" > Movement Magnitude:", img.frame_magnitude)
-        print(constants.cv_lower_bound,
-              constants.cv_hard_lower_bound,
-              c_x,
-              constants.cv_hard_upper_bound,
-              constants.cv_upper_bound)
 
         if reset_count > 1:
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
@@ -62,6 +55,15 @@ if __name__ == '__main__':
 
         camera.raw_cap.truncate(0)
         frame_count += 1
+
+        print(f"{frame_count}")
+        print(" > Movement Magnitude:", img.frame_magnitude)
+        print(constants.cv_lower_bound,
+              constants.cv_hard_lower_bound,
+              c_x,
+              constants.cv_hard_upper_bound,
+              constants.cv_upper_bound)
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
