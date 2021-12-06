@@ -34,8 +34,8 @@ class Frame:
 
     def canny_difference(self, prev_frame):
         diff = cv2.subtract(self.blurred, prev_frame.blurred)
-        # return self.canny(diff, self.canny_min, self.canny_max)
-        return diff
+        return self.canny(diff, self.canny_min, self.canny_max)
+        # return diff
 
     @staticmethod
     def sum_image(src):
