@@ -1,3 +1,5 @@
+import time
+
 import cv2
 from roboconvcv_imgframe import Frame, PiCam
 from roboconvcv_database import DBConnection
@@ -46,7 +48,8 @@ if __name__ == '__main__':
                     db.log_stop_conv()
                     db.log_ssc_take_item()
                     print(" >>> at center")
-                    robo_arm.grab_drop_ready(2)
+                    time.sleep(2)
+                    robo_arm.grab_drop_ready(1.5)
 
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
