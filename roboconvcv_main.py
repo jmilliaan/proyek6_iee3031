@@ -49,8 +49,8 @@ if __name__ == '__main__':
             prev_img = Frame(frame.array)
             c_x, c_y = 0, 0
 
-        # cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
-        # cv2.imshow("Difference Frame", canny_diff)
+        cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
+        cv2.imshow("Difference Frame", canny_diff)
         prev_c_x, prev_c_y = c_x, c_y
 
         camera.raw_cap.truncate(0)
