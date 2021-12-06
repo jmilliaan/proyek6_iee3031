@@ -63,7 +63,7 @@ if __name__ == '__main__':
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
                 db.log_start_conv()
-
+        c_x, c_y = img.centroid(canny_diff)
         if frame_count % constants.cv_frames_before_refresh == 0:
             reset_count += 1
             prev_img = Frame(frame.array)
