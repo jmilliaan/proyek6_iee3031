@@ -22,6 +22,7 @@ if __name__ == '__main__':
 
     robo_arm.reset_ready(1)
     conveyor.start()
+    db.log_start_conv()
 
     for frame in camera.cam.capture_continuous(camera.raw_cap,
                                                format="bgr",
@@ -34,15 +35,22 @@ if __name__ == '__main__':
         c_x, c_y = img.centroid(canny_diff)
 
         if reset_count > 1:
+
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
+                db.log_slow_conv()
                 print(" >> close to center")
+
                 if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
                     conveyor.change_dc(constants.conveyor_stop_dc)
+                    db.log_stop_conv()
+                    db.log_ssc_take_item()
                     print(" >>> at center")
                     robo_arm.grab_drop_ready(2)
+
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
+                db.log_start_conv()
 
         if frame_count % constants.cv_frames_before_refresh == 0:
             reset_count += 1
