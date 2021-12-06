@@ -18,8 +18,10 @@ if __name__ == '__main__':
     robo_arm = SSC32RoboticArm(constants.ssc32_serial_port, constants.ssc32_baud_rate)
     conveyor = ConveyorBelt()
     camera = PiCam()
+
     robo_arm.reset_ready(1)
     conveyor.start()
+
     for frame in camera.cam.capture_continuous(camera.raw_cap,
                                                format="bgr",
                                                use_video_port=True):
@@ -54,8 +56,8 @@ if __name__ == '__main__':
             prev_img = Frame(frame.array)
             c_x, c_y = 0, 0
 
-        cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
-        cv2.imshow("Difference Frame", canny_diff)
+        # cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
+        # cv2.imshow("Difference Frame", canny_diff)
         prev_c_x, prev_c_y = c_x, c_y
 
         camera.raw_cap.truncate(0)
