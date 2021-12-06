@@ -48,8 +48,9 @@ if __name__ == '__main__':
                     db.log_stop_conv()
                     db.log_ssc_take_item()
                     print(" >>> at center")
-                    time.sleep(2)
-                    robo_arm.grab_drop_ready(1.5)
+                    time.sleep(1)
+                    robo_arm.grab_drop_ready(1)
+                    continue
 
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)

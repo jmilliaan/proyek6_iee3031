@@ -36,8 +36,8 @@ class SSC32RoboticArm:
         if self.connected:
             print("||| SSC32 READY POSITION |||")
             self.move_ssc(0, 2400, self.default_dur)
-            self.move_ssc(1, 1700, self.default_dur)
-            self.move_ssc(2, 1300, self.default_dur)
+            self.move_ssc(1, 1600, self.default_dur)
+            self.move_ssc(2, 1200, self.default_dur)
             self.move_ssc(3, 1350, self.default_dur)
             self.move_ssc(4, 2400, self.default_dur)
 
@@ -45,9 +45,9 @@ class SSC32RoboticArm:
         if self.connected:
             print("||| SSC32 GRAB POSITION |||")
             self.move_ssc(0, 2400, self.default_dur)
-            self.move_ssc(1, 1350, self.default_dur)
-            self.move_ssc(2, 1150, self.default_dur)
-            self.move_ssc(3, 1100, self.default_dur)
+            self.move_ssc(1, 1200, self.default_dur)
+            self.move_ssc(2, 1100, self.default_dur)
+            self.move_ssc(3, 1200, self.default_dur)
             time.sleep(self.default_dur / 1000)
             self.move_ssc(4, 1000, self.default_dur)
             time.sleep(2 * self.default_dur / 1000)
