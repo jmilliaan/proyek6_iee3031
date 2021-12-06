@@ -25,7 +25,7 @@ if __name__ == '__main__':
     for frame in camera.cam.capture_continuous(camera.raw_cap,
                                                format="bgr",
                                                use_video_port=True):
-
+        print(f"{frame_count}")
         if frame_count <= 1:
             prev_img = Frame(frame.array)
 
