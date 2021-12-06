@@ -37,8 +37,16 @@ class Frame:
         # return self.canny(diff, self.canny_min, self.canny_max)
         return diff
 
+    @staticmethod
+    def sum_image(src):
+        out = 0
+        for row in src:
+            out += sum(row)
+        return out
+
     def centroid(self, img):
-        self.frame_magnitude = cv2.sumElems(img)
+        # self.frame_magnitude = cv2.sumElems(img)
+        self.frame_magnitude = self.sum_image(img)
         self.frame_moments = cv2.moments(img)
         print("frame mag: ", self.frame_magnitude)
         if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
