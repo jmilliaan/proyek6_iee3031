@@ -21,9 +21,8 @@ if __name__ == '__main__':
                                constants.ssc32_baud_rate)
     conveyor = ConveyorBelt()
     camera = PiCam()
-
-    robo_arm.reset_ready(1)
     conveyor.start()
+    robo_arm.reset_ready(1)
     db.log_start_conv()
 
     for frame in camera.cam.capture_continuous(camera.raw_cap,
@@ -37,20 +36,26 @@ if __name__ == '__main__':
         c_x, c_y = img.centroid(canny_diff)
 
         if reset_count > 1:
-
+            print(" > Movement Magnitude:", img.frame_magnitude)
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
+                print(" > Movement Magnitude:", img.frame_magnitude)
                 db.log_slow_conv()
                 print(" >> close to center")
 
                 if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
                     conveyor.change_dc(constants.conveyor_stop_dc)
                     db.log_stop_conv()
+                    print(" > Movement Magnitude:", img.frame_magnitude)
                     db.log_ssc_take_item()
+                    print(" > Movement Magnitude:", img.frame_magnitude)
                     print(" >>> at center")
+                    print(" > Movement Magnitude:", img.frame_magnitude)
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
+                    print(" > Movement Magnitude:", img.frame_magnitude)
                     c_x, c_y = 0, 0
+                    print(" > Movement Magnitude:", img.frame_magnitude)
                     camera.raw_cap.truncate(0)
                     continue
 
