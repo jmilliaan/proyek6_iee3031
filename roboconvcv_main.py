@@ -50,6 +50,7 @@ if __name__ == '__main__':
                     print(" >>> at center")
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
+                    c_x, c_y = 0, 0
                     camera.raw_cap.truncate(0)
                     continue
 
