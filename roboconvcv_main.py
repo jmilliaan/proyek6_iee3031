@@ -35,6 +35,12 @@ if __name__ == '__main__':
         img = Frame(frame.array)
         canny_diff = img.canny_difference(prev_img)
         c_x, c_y = img.centroid(canny_diff)
+        print(" > Movement Magnitude:", img.frame_magnitude)
+        print(constants.cv_lower_bound,
+              constants.cv_hard_lower_bound,
+              c_x,
+              constants.cv_hard_upper_bound,
+              constants.cv_upper_bound)
         cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
         cv2.imshow("Difference Frame", canny_diff)
         if reset_count > 1:
@@ -54,7 +60,7 @@ if __name__ == '__main__':
                     robo_arm.grab_drop_ready(1)
                     img.frame_magnitude = 0
                     camera.raw_cap.truncate(0)
-                    c_x, c_y = -1, -1
+                    c_x, c_y = 0, 0
                     time.sleep(1)
                     continue
 
@@ -75,12 +81,7 @@ if __name__ == '__main__':
         frame_count += 1
 
         print(f"{frame_count}")
-        print(" > Movement Magnitude:", img.frame_magnitude)
-        print(constants.cv_lower_bound,
-              constants.cv_hard_lower_bound,
-              c_x,
-              constants.cv_hard_upper_bound,
-              constants.cv_upper_bound)
+
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
