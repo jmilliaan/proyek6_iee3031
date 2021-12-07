@@ -48,8 +48,8 @@ if __name__ == '__main__':
 
         cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
         cv2.line(canny_diff,
-                 (constants.cv_hard_lower_bound, 0),
-                 (constants.cv_hard_lower_bound, constants.cv_y_dim),
+                 (0, 0),
+                 (100, 100),
                  (0, 0, 255), 5)
 
         cv2.imshow("Difference Frame", canny_diff)
