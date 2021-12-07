@@ -52,7 +52,7 @@ if __name__ == '__main__':
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
                     img.frame_magnitude = 0
-                    c_x, c_y = -1, -1
+                    # c_x, c_y = -1, -1
                     camera.raw_cap.truncate(0)
                     continue
 
@@ -60,12 +60,12 @@ if __name__ == '__main__':
                 conveyor.change_dc(constants.conveyor_high_dc)
                 db.log_start_conv()
 
-        c_x, c_y = img.centroid(canny_diff)
-
         if frame_count % constants.cv_frames_before_refresh == 0:
             reset_count += 1
             prev_img = Frame(frame.array)
             # c_x, c_y = 0, 0
+
+        c_x, c_y = img.centroid(canny_diff)
 
         cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
         cv2.imshow("Difference Frame", canny_diff)
