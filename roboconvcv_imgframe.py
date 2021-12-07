@@ -13,7 +13,7 @@ class Frame:
         self.bw = cv2.cvtColor(self.raw_frame, cv2.COLOR_BGR2GRAY)
         self.canny_min = constants.cv_canny_min
         self.canny_max = constants.cv_canny_max
-        self.sigma_val = 1
+        self.sigma_val = 1.5
         self.blurred = self.blur(self.sigma_val)
         self.canny_edges = self.canny(self.blurred,
                                       self.canny_min,
