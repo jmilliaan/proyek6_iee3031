@@ -33,20 +33,22 @@ if __name__ == '__main__':
 
         if frame_count <= 1:
             prev_img = Frame(frame.array)
+
+        canny_diff = img.canny_difference(prev_img)
+        magnitude = img.fast_sum_image(canny_diff)
+        c_x, c_y = img.centroid(canny_diff)
+
         print(f"FRAME: {frame_count}")
-        print(" > Movement Magnitude:", img.frame_magnitude)
+        print(" > Movement Magnitude:", magnitude)
         print(constants.cv_lower_bound,
               constants.cv_hard_lower_bound,
               c_x,
               constants.cv_hard_upper_bound,
               constants.cv_upper_bound)
 
-        canny_diff = img.canny_difference(prev_img)
-        magnitude = img.fast_sum_image(canny_diff)
-        c_x, c_y = img.centroid(canny_diff)
-
         cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
         cv2.imshow("Difference Frame", canny_diff)
+
         if reset_count > 1:
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
