@@ -51,8 +51,8 @@ cv_canny_max = cv["canny_max"]
 cv_prev_c_x = cv["prev_c_x"]
 cv_prev_c_y = cv["prev_c_y"]
 cv_frames_before_refresh = cv["frames_before_refresh"]
-cv_magnitude_lower_boundary = cv["magnitude_lower_boundary"]
-cv_magnitude_upper_boundary = cv["magnitude_upper_boundary"]
+cv_magnitude_lower_boundary = cv["magnitude_lower_boundary"] * cv_max_frame_difference
+cv_magnitude_upper_boundary = cv["magnitude_upper_boundary"] * cv_max_frame_difference
 
 # CONVEYOR BELT CONSTANTS
 conveyor = constants["ConveyorBelt"]

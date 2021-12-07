@@ -39,21 +39,12 @@ class Frame:
         # return diff
 
     @staticmethod
-    def sum_image(src):
-        out = 0
-        for row in src:
-            out += sum(row)
-        return out / constants.cv_max_frame_difference
-
-    @staticmethod
     def fast_sum_image(src):
-        return np.sum(src) / constants.cv_max_frame_difference
+        return np.sum(src)
 
     def centroid(self, img):
         # self.frame_magnitude = cv2.sumElems(img)
-        meng = self.fast_sum_image(img)
-        self.frame_magnitude = self.sum_image(img)
-        print(f"FM  : {self.frame_magnitude}\nFSI : {meng}")
+        self.frame_magnitude = self.fast_sum_image(img)
         self.frame_moments = cv2.moments(img)
         if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
             if self.frame_moments["m00"] != 0:
