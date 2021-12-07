@@ -47,6 +47,10 @@ if __name__ == '__main__':
               constants.cv_upper_bound)
 
         cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
+        cv2.line(canny_diff,
+                 (constants.cv_hard_lower_bound, 0),
+                 (constants.cv_hard_lower_bound, constants.cv_y_dim),
+                 (0, 0, 255), 5)
         cv2.imshow("Difference Frame", canny_diff)
 
         if reset_count > 1:
@@ -54,14 +58,20 @@ if __name__ == '__main__':
                 conveyor.change_dc(constants.conveyor_low_dc)
                 db.log_slow_conv()
                 print(" >> close to center")
-                if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
-                    conveyor.change_dc(constants.conveyor_stop_dc)
-                    db.log_stop_conv()
-                    db.log_ssc_take_item()
+
+                centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
+                magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
+                    cv_magnitude_upper_boundary
+
+                if centroid_pos_condition and magnitude_size_condition:
                     print(" >>> at center", end=" ")
                     print(constants.cv_hard_lower_bound,
                           c_x,
                           constants.cv_hard_upper_bound)
+                    conveyor.change_dc(constants.conveyor_stop_dc)
+                    db.log_stop_conv()
+                    db.log_ssc_take_item()
+
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
                     img.frame_magnitude = 0
