@@ -65,7 +65,7 @@ if __name__ == '__main__':
         if frame_count % constants.cv_frames_before_refresh == 0:
             reset_count += 1
             prev_img = Frame(frame.array)
-            c_x, c_y = 0, 0
+            # c_x, c_y = 0, 0
 
         cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
         cv2.imshow("Difference Frame", canny_diff)
