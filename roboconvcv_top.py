@@ -50,8 +50,7 @@ if __name__ == '__main__':
 
         cv2.imshow("Difference Frame", canny_diff)
         cv2.imshow("Canny Frame", img.canny_edges)
-        cv2.imshow("Normal Frame", img.raw_frame)
-        cv2.imshow("Blur Frame", img.blurred)
+        # cv2.imshow("Blur Frame", img.blurred)
         centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
         magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
             cv_magnitude_upper_boundary
@@ -66,34 +65,34 @@ if __name__ == '__main__':
               f"{constants.cv_hard_upper_bound} < "
               f"{constants.cv_upper_bound}")
 
-        # if reset_count > 1:
-        #     if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
-        #         print(" >> close to center")
-        #         conveyor.change_dc(constants.conveyor_low_dc)
-        #         db.log_slow_conv()
-        #
-        #         if centroid_pos_condition and magnitude_size_condition:
-        #             print(" >>> at center", end=" ")
-        #             print(constants.cv_hard_lower_bound,
-        #                   c_x,
-        #                   constants.cv_hard_upper_bound)
-        #             conveyor.change_dc(constants.conveyor_stop_dc)
-        #
-        #             db.log_stop_conv()
-        #             db.log_ssc_take_item()
-        #
-        #             time.sleep(0.5)
-        #             robo_arm.grab_drop_ready(1)
-        #
-        #             magnitude = 0
-        #             c_x, c_y = 0, 0
-        #             camera.raw_cap.truncate(0)
-        #             time.sleep(0.5)
-        #             continue
-        #
-        #     else:
-        #         db.log_start_conv()
-        #         conveyor.change_dc(constants.conveyor_high_dc)
+        if reset_count > 1:
+            if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
+                print(" >> close to center")
+                conveyor.change_dc(constants.conveyor_low_dc)
+                db.log_slow_conv()
+
+                if centroid_pos_condition and magnitude_size_condition:
+                    print(" >>> at center", end=" ")
+                    print(constants.cv_hard_lower_bound,
+                          c_x,
+                          constants.cv_hard_upper_bound)
+                    conveyor.change_dc(constants.conveyor_stop_dc)
+
+                    db.log_stop_conv()
+                    db.log_ssc_take_item()
+
+                    time.sleep(0.5)
+                    robo_arm.grab_drop_ready(1)
+
+                    magnitude = 0
+                    c_x, c_y = 0, 0
+                    camera.raw_cap.truncate(0)
+                    time.sleep(0.5)
+                    continue
+
+            else:
+                db.log_start_conv()
+                conveyor.change_dc(constants.conveyor_high_dc)
 
         prev_c_x, prev_c_y = c_x, c_y
 
