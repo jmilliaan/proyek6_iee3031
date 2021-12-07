@@ -1,5 +1,4 @@
 import time
-
 import cv2
 from roboconvcv_imgframe import Frame, PiCam
 from roboconvcv_database import DBConnection
@@ -22,7 +21,9 @@ if __name__ == '__main__':
     conveyor = ConveyorBelt()
     camera = PiCam()
     conveyor.start()
+
     robo_arm.reset_ready(2)
+
     db.log_start_conv()
 
     for frame in camera.cam.capture_continuous(camera.raw_cap,
@@ -37,6 +38,7 @@ if __name__ == '__main__':
 
         if reset_count > 1:
             print(" > Movement Magnitude:", img.frame_magnitude)
+
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
                 print(" > Movement Magnitude:", img.frame_magnitude)
@@ -63,7 +65,9 @@ if __name__ == '__main__':
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
                 db.log_start_conv()
+
         c_x, c_y = img.centroid(canny_diff)
+
         if frame_count % constants.cv_frames_before_refresh == 0:
             reset_count += 1
             prev_img = Frame(frame.array)
