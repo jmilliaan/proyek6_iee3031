@@ -42,12 +42,19 @@ if __name__ == '__main__':
         magnitude = img.fast_sum_image(canny_diff)
         c_x, c_y = img.centroid(canny_diff)
 
-        print(f"FRAME: {frame_count}")
+        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), 0)
+        cv2.line(canny_diff,
+                 (0, 0),
+                 (100, 100),
+                 (0, 0, 255), 5)
+
+        cv2.imshow("Difference Frame", canny_diff)
 
         centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
         magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
             cv_magnitude_upper_boundary
 
+        print(f"FRAME: {frame_count}")
         print(f" > Movement Magnitude : {magnitude_size_condition} : ", end=" ")
         print(f"{constants.cv_magnitude_lower_boundary} < {magnitude} < {constants.cv_magnitude_upper_boundary}")
         print(f" > Centroid: {centroid_pos_condition} : ", end=" ")
@@ -56,14 +63,6 @@ if __name__ == '__main__':
               f"{c_x} < "
               f"{constants.cv_hard_upper_bound} < "
               f"{constants.cv_upper_bound}")
-
-        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
-        cv2.line(canny_diff,
-                 (0, 0),
-                 (100, 100),
-                 (0, 0, 255), 5)
-
-        cv2.imshow("Difference Frame", canny_diff)
 
         if reset_count > 1:
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
