@@ -48,7 +48,7 @@ class SSC32RoboticArm:
             self.move_ssc(0, 2400, self.default_dur)
             self.move_ssc(1, 1400, self.default_dur)
             self.move_ssc(2, 1200, self.default_dur)
-            self.move_ssc(3, 1500, self.default_dur)
+            self.move_ssc(3, 1600, self.default_dur)
             time.sleep(self.default_dur / 1000)
             self.move_ssc(4, 1000, self.default_dur)
             time.sleep(2 * self.default_dur / 1000)
