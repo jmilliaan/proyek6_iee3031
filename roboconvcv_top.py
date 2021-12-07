@@ -88,7 +88,7 @@ if __name__ == '__main__':
                     c_x, c_y = 0, 0
                     camera.raw_cap.truncate(0)
                     time.sleep(0.5)
-                    continue
+                    break
 
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
