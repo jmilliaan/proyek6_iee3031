@@ -41,24 +41,18 @@ if __name__ == '__main__':
 
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
                 conveyor.change_dc(constants.conveyor_low_dc)
-                print(" > Movement Magnitude:", img.frame_magnitude)
                 db.log_slow_conv()
                 print(" >> close to center")
 
                 if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
                     conveyor.change_dc(constants.conveyor_stop_dc)
                     db.log_stop_conv()
-                    print(" > Movement Magnitude:", img.frame_magnitude)
                     db.log_ssc_take_item()
-                    print(" > Movement Magnitude:", img.frame_magnitude)
                     print(" >>> at center")
-                    print(" > Movement Magnitude:", img.frame_magnitude)
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
-                    print(" > Movement Magnitude:", img.frame_magnitude)
                     img.frame_magnitude = 0
                     c_x, c_y = -1, -1
-                    print(" > Movement Magnitude:", img.frame_magnitude)
                     camera.raw_cap.truncate(0)
                     continue
 

@@ -47,7 +47,7 @@ class Frame:
 
     @staticmethod
     def fast_sum_image(src):
-        return np.sum(src)
+        return np.sum(src) / constants.cv_max_frame_difference
 
     def centroid(self, img):
         # self.frame_magnitude = cv2.sumElems(img)
