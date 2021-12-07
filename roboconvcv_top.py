@@ -39,9 +39,14 @@ if __name__ == '__main__':
         c_x, c_y = img.centroid(canny_diff)
 
         print(f"FRAME: {frame_count}")
-        print(" > Movement Magnitude:", end=" ")
+
+        centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
+        magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
+            cv_magnitude_upper_boundary
+
+        print(f" > Movement Magnitude : {magnitude_size_condition} : ", end=" ")
         print(f"{constants.cv_magnitude_lower_boundary} < {magnitude} < {constants.cv_magnitude_upper_boundary}")
-        print(" > Centroid:", end=" ")
+        print(f" > Centroid: {centroid_pos_condition} : ", end=" ")
         print(f"{constants.cv_lower_bound} < "
               f"{constants.cv_hard_lower_bound} < "
               f"{c_x} < "
@@ -61,10 +66,6 @@ if __name__ == '__main__':
                 conveyor.change_dc(constants.conveyor_low_dc)
                 db.log_slow_conv()
                 print(" >> close to center")
-
-                centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
-                magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
-                    cv_magnitude_upper_boundary
 
                 if centroid_pos_condition and magnitude_size_condition:
                     print(" >>> at center", end=" ")
