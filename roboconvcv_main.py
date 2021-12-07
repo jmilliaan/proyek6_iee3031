@@ -56,6 +56,11 @@ if __name__ == '__main__':
                     db.log_stop_conv()
                     db.log_ssc_take_item()
                     print(" >>> at center")
+                    print(constants.cv_lower_bound,
+                          constants.cv_hard_lower_bound,
+                          c_x,
+                          constants.cv_hard_upper_bound,
+                          constants.cv_upper_bound)
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
                     img.frame_magnitude = 0
