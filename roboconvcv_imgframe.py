@@ -3,6 +3,7 @@ from picamera.array import PiRGBArray as pi_rgb
 from picamera import PiCamera as picam
 from scipy.ndimage.filters import gaussian_filter
 import time
+import numpy as np
 import roboconvcv_constants as constants
 
 
@@ -44,9 +45,15 @@ class Frame:
             out += sum(row)
         return out / constants.cv_max_frame_difference
 
+    @staticmethod
+    def fast_sum_image(src):
+        return np.sum(src)
+
     def centroid(self, img):
         # self.frame_magnitude = cv2.sumElems(img)
+        meng = self.fast_sum_image(img)
         self.frame_magnitude = self.sum_image(img)
+        print(f"FM  : {self.frame_magnitude}\nFSI : {meng}")
         self.frame_moments = cv2.moments(img)
         if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
             if self.frame_moments["m00"] != 0:
