@@ -40,15 +40,13 @@ if __name__ == '__main__':
 
         print(f"FRAME: {frame_count}")
         print(" > Movement Magnitude:", end=" ")
-        print(constants.cv_magnitude_lower_boundary,
-              magnitude,
-              constants.cv_magnitude_upper_boundary)
+        print(f"{constants.cv_magnitude_lower_boundary} < {magnitude} < {constants.cv_magnitude_upper_boundary}")
         print(" > Centroid:", end=" ")
-        print(constants.cv_lower_bound,
-              constants.cv_hard_lower_bound,
-              c_x,
-              constants.cv_hard_upper_bound,
-              constants.cv_upper_bound)
+        print(f"{constants.cv_lower_bound} < "
+              f"{constants.cv_hard_lower_bound} < "
+              f"{c_x} < "
+              f"{constants.cv_hard_upper_bound} < "
+              f"{constants.cv_upper_bound}")
 
         cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
         cv2.line(canny_diff,
