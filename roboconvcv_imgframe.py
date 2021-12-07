@@ -21,7 +21,7 @@ class Frame:
         self.c_x = 0
         self.c_y = 0
         self.cannydetector = []
-        self.frame_magnitude = 0
+        # self.frame_magnitude = 0
         self.frame_moments = 0
 
     def blur(self, sigma_val):
