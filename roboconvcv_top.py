@@ -42,7 +42,7 @@ if __name__ == '__main__':
         magnitude = img.fast_sum_image(canny_diff)
         c_x, c_y = img.centroid(canny_diff)
 
-        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), 0)
+        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
         cv2.line(canny_diff,
                  (0, 0),
                  (100, 100),
