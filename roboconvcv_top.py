@@ -31,6 +31,8 @@ if __name__ == '__main__':
                                                use_video_port=True):
         img = Frame(frame.array)
 
+        if frame_count <= 1:
+            prev_img = Frame(frame.array)
         print(f"FRAME: {frame_count}")
         print(" > Movement Magnitude:", img.frame_magnitude)
         print(constants.cv_lower_bound,
@@ -39,10 +41,8 @@ if __name__ == '__main__':
               constants.cv_hard_upper_bound,
               constants.cv_upper_bound)
 
-        if frame_count <= 1:
-            prev_img = Frame(frame.array)
-
         canny_diff = img.canny_difference(prev_img)
+        magnitude = img.fast_sum_image(canny_diff)
         c_x, c_y = img.centroid(canny_diff)
 
         cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
@@ -52,7 +52,6 @@ if __name__ == '__main__':
                 conveyor.change_dc(constants.conveyor_low_dc)
                 db.log_slow_conv()
                 print(" >> close to center")
-
                 if constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound:
                     conveyor.change_dc(constants.conveyor_stop_dc)
                     db.log_stop_conv()

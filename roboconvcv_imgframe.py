@@ -18,9 +18,9 @@ class Frame:
         self.canny_edges = self.canny(self.blurred,
                                       self.canny_min,
                                       self.canny_max)
-        self.cannydetector = []
         self.c_x = 0
         self.c_y = 0
+        self.cannydetector = []
         self.frame_magnitude = 0
         self.frame_moments = 0
 
@@ -43,14 +43,14 @@ class Frame:
         return np.sum(src)
 
     def centroid(self, img):
-        # self.frame_magnitude = cv2.sumElems(img)
-        self.frame_magnitude = self.fast_sum_image(img)
-        if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
-            self.frame_moments = cv2.moments(img)
-            if self.frame_moments["m00"] != 0:
-                self.c_x = int(self.frame_moments["m10"] / self.frame_moments["m00"])
-                self.c_y = int(self.frame_moments["m01"] / self.frame_moments["m00"])
-        return self.c_x, self.c_y
+        self.frame_moments = cv2.moments(img)
+        new_x, new_y = 0, 0
+        if self.frame_moments["m00"] != 0:
+            new_x = int(self.frame_moments["m10"] / self.frame_moments["m00"])
+            new_y = int(self.frame_moments["m01"] / self.frame_moments["m00"])
+            self.c_x = new_x
+            self.c_y = new_y
+        return new_x, new_y
 
 
 class PiCam:
