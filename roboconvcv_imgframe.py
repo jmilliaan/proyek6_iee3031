@@ -45,8 +45,8 @@ class Frame:
     def centroid(self, img):
         # self.frame_magnitude = cv2.sumElems(img)
         self.frame_magnitude = self.fast_sum_image(img)
-        self.frame_moments = cv2.moments(img)
         if constants.cv_magnitude_lower_boundary < self.frame_magnitude < constants.cv_magnitude_upper_boundary:
+            self.frame_moments = cv2.moments(img)
             if self.frame_moments["m00"] != 0:
                 self.c_x = int(self.frame_moments["m10"] / self.frame_moments["m00"])
                 self.c_y = int(self.frame_moments["m01"] / self.frame_moments["m00"])
