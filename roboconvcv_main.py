@@ -35,7 +35,8 @@ if __name__ == '__main__':
         img = Frame(frame.array)
         canny_diff = img.canny_difference(prev_img)
         c_x, c_y = img.centroid(canny_diff)
-
+        cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
+        cv2.imshow("Difference Frame", canny_diff)
         if reset_count > 1:
             print(" > Movement Magnitude:", img.frame_magnitude)
 
@@ -54,6 +55,7 @@ if __name__ == '__main__':
                     img.frame_magnitude = 0
                     camera.raw_cap.truncate(0)
                     c_x, c_y = -1, -1
+                    time.sleep(1)
                     continue
 
             else:
@@ -67,8 +69,6 @@ if __name__ == '__main__':
 
         # c_x, c_y = img.centroid(canny_diff)
 
-        cv2.circle(canny_diff, (c_x, constants.cv_half_y_dim), 5, (255, 255, 255), -1)
-        cv2.imshow("Difference Frame", canny_diff)
         prev_c_x, prev_c_y = c_x, c_y
 
         camera.raw_cap.truncate(0)
