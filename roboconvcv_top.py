@@ -34,6 +34,10 @@ if __name__ == '__main__':
         if frame_count <= 1:
             prev_img = Frame(frame.array)
 
+        if frame_count % constants.cv_frames_before_refresh == 0:
+            reset_count += 1
+            prev_img = Frame(frame.array)
+
         canny_diff = img.canny_difference(prev_img)
         magnitude = img.fast_sum_image(canny_diff)
         c_x, c_y = img.centroid(canny_diff)
@@ -63,9 +67,9 @@ if __name__ == '__main__':
 
         if reset_count > 1:
             if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
+                print(" >> close to center")
                 conveyor.change_dc(constants.conveyor_low_dc)
                 db.log_slow_conv()
-                print(" >> close to center")
 
                 if centroid_pos_condition and magnitude_size_condition:
                     print(" >>> at center", end=" ")
@@ -73,24 +77,22 @@ if __name__ == '__main__':
                           c_x,
                           constants.cv_hard_upper_bound)
                     conveyor.change_dc(constants.conveyor_stop_dc)
+
                     db.log_stop_conv()
                     db.log_ssc_take_item()
 
-                    time.sleep(1)
+                    time.sleep(0.5)
                     robo_arm.grab_drop_ready(1)
+
                     img.frame_magnitude = 0
-                    camera.raw_cap.truncate(0)
                     c_x, c_y = 0, 0
-                    time.sleep(1)
+                    camera.raw_cap.truncate(0)
+                    time.sleep(0.5)
                     continue
 
             else:
                 conveyor.change_dc(constants.conveyor_high_dc)
                 db.log_start_conv()
-
-        if frame_count % constants.cv_frames_before_refresh == 0:
-            reset_count += 1
-            prev_img = Frame(frame.array)
 
         prev_c_x, prev_c_y = c_x, c_y
 
