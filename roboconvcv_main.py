@@ -52,8 +52,8 @@ if __name__ == '__main__':
                     time.sleep(1)
                     robo_arm.grab_drop_ready(1)
                     img.frame_magnitude = 0
-                    # c_x, c_y = -1, -1
                     camera.raw_cap.truncate(0)
+                    c_x, c_y = -1, -1
                     continue
 
             else:
