@@ -87,11 +87,11 @@ if __name__ == '__main__':
                     c_x, c_y = 0, 0
                     camera.raw_cap.truncate(0)
                     time.sleep(0.5)
-                    break
+                    continue
 
             else:
-                conveyor.change_dc(constants.conveyor_high_dc)
                 db.log_start_conv()
+                conveyor.change_dc(constants.conveyor_high_dc)
 
         prev_c_x, prev_c_y = c_x, c_y
 
