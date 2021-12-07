@@ -49,7 +49,7 @@ if __name__ == '__main__':
                  (0, 0, 255), 5)
 
         cv2.imshow("Difference Frame", canny_diff)
-
+        cv2.imshow("Normal Frame", img.canny_edges)
         centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
         magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
             cv_magnitude_upper_boundary
