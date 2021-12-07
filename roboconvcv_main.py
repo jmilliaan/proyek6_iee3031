@@ -80,8 +80,7 @@ if __name__ == '__main__':
         camera.raw_cap.truncate(0)
         frame_count += 1
 
-        print(f"{frame_count}")
-
+        print(f"FRAME: {frame_count}")
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

@@ -25,7 +25,7 @@
     "prev_c_x": 0,
     "prev_c_y": 0,
     "frames_before_refresh": 3,
-    "magnitude_lower_boundary": 0.005,
+    "magnitude_lower_boundary": 0.008,
     "magnitude_upper_boundary": 0.01
   },
   "ConveyorBelt": {
