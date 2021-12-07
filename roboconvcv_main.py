@@ -22,7 +22,7 @@ if __name__ == '__main__':
     conveyor = ConveyorBelt()
     camera = PiCam()
     conveyor.start()
-    robo_arm.reset_ready(1)
+    robo_arm.reset_ready(2)
     db.log_start_conv()
 
     for frame in camera.cam.capture_continuous(camera.raw_cap,

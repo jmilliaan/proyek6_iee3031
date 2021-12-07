@@ -7,6 +7,7 @@ import time
 class SSC32RoboticArm:
     def __init__(self, port, baud):
         self.default_dur = 800
+        self.extended_dur = 1600
         self.serial_port = port
         self.baud_rate = baud
         self.connected = False
@@ -26,20 +27,20 @@ class SSC32RoboticArm:
     def reset_position(self):
         if self.connected:
             print("||| SSC32 RESET POSITION |||")
-            self.move_ssc(0, 1500, self.default_dur)
-            self.move_ssc(1, 1500, self.default_dur)
-            self.move_ssc(2, 1500, self.default_dur)
-            self.move_ssc(3, 1500, self.default_dur)
-            self.move_ssc(4, 1000, self.default_dur)
+            self.move_ssc(0, 1500, self.extended_dur)
+            self.move_ssc(1, 1500, self.extended_dur)
+            self.move_ssc(2, 1500, self.extended_dur)
+            self.move_ssc(3, 1500, self.extended_dur)
+            self.move_ssc(4, 1000, self.extended_dur)
 
     def ready_position(self):
         if self.connected:
             print("||| SSC32 READY POSITION |||")
-            self.move_ssc(0, 2400, self.default_dur)
-            self.move_ssc(1, 1600, self.default_dur)
-            self.move_ssc(2, 1200, self.default_dur)
-            self.move_ssc(3, 1350, self.default_dur)
-            self.move_ssc(4, 2400, self.default_dur)
+            self.move_ssc(0, 2400, self.extended_dur)
+            self.move_ssc(1, 1600, self.extended_dur)
+            self.move_ssc(2, 1200, self.extended_dur)
+            self.move_ssc(3, 1350, self.extended_dur)
+            self.move_ssc(4, 2400, self.extended_dur)
 
     def grab_position(self):
         if self.connected:
