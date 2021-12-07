@@ -39,7 +39,11 @@ if __name__ == '__main__':
         c_x, c_y = img.centroid(canny_diff)
 
         print(f"FRAME: {frame_count}")
-        print(" > Movement Magnitude:", magnitude)
+        print(" > Movement Magnitude:", end=" ")
+        print(constants.cv_magnitude_lower_boundary,
+              magnitude,
+              constants.cv_magnitude_upper_boundary)
+        print(" > Centroid:", end=" ")
         print(constants.cv_lower_bound,
               constants.cv_hard_lower_bound,
               c_x,
