@@ -1,3 +1,6 @@
+from django.urls import include, path
+from ..proyek6.views import index
+
 """roboconvcv URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,5 +20,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    path('', index, name="index"),
+    path('roboconvcv/', include('roboconvcv.urls')),
     path('admin/', admin.site.urls),
 ]
