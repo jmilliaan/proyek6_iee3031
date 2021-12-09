@@ -4,6 +4,7 @@ from roboconvcv_imgframe import Frame, PiCam
 from roboconvcv_database import DBConnection
 from roboconvcv_ssc32 import SSC32RoboticArm
 from roboconvcv_conveyor import ConveyorBelt
+from roboconvcv_mqtt import MQTT
 import roboconvcv_constants as constants
 
 frame_count = 0
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     conveyor = ConveyorBelt()
     camera = PiCam()
     conveyor.start()
-
+    mqtt = MQTT()
     robo_arm.reset_ready(2)
 
     db.log_start_conv()

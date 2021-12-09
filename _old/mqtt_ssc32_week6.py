@@ -36,27 +36,29 @@ ch4_prev = 0
 def move_ssc(servo, position, duration):
     ssc[servo].position = position
     ssc.commit(time=duration)
-    #ssc.wait_for_movement_completion()
+    # ssc.wait_for_movement_completion()
+
 
 def on_connect(client, userdata, flags, rc):
     print("Connected", str(rc))
     client.subscribe(topic)
-    
+
+
 def on_message(client, userdata, msg):
     global mode
     global ch1_prev
     global ch2_prev
     global ch3_prev
     global ch4_prev
-    
+
     incoming = msg.payload.decode('utf-8')
     control_list = incoming.split(":")
     button = int(control_list[0])
     ch1 = abs(int(control_list[1])) * 50 + 500
-    ch2 = abs(int(control_list[2])) * 50 + 1500 
+    ch2 = abs(int(control_list[2])) * 50 + 1500
     ch3 = abs(int(control_list[3])) * 50 + 1350
     ch4 = abs(int(control_list[4])) * 50 + 1500
-    
+
     print()
     if (ch1 == ch1_prev) or (ch2 == ch2_prev) or (ch3 == ch3_prev) or (ch4 == ch4_prev):
         pass
@@ -73,13 +75,13 @@ def on_message(client, userdata, msg):
     print(ch2, ch2_prev)
     print(ch3, ch3_prev)
     print(ch4, ch4_prev)
-    #time.sleep(0.1)
-    
-if __name__=="__main__":
+    # time.sleep(0.1)
+
+
+if __name__ == "__main__":
     client.on_connect = on_connect
     client.on_message = on_message
-    
+
     client.connect(broker_ip, 1883)
     client.loop_forever()
-    client.disconnect
-    
+    client.disconnect()
