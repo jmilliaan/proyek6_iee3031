@@ -1,3 +1,4 @@
+`
 import serial.serialutil
 import serial
 import ssc32
@@ -28,7 +29,7 @@ class SSC32RoboticArm:
 
     def move_ssc(self, servo, pos, dur):
         if self.connected:
-            self.ser.write(f"#{servo} P{pos} T{dur} <cr>")
+            self.ser.write(bytes(f"#{servo} P{pos} T{dur} <cr>", "utf-8"))
             # self.ssc.commit(time=dur)
             # self.ssc[servo].position = pos
 
@@ -89,3 +90,6 @@ class SSC32RoboticArm:
             time.sleep(dur)
             self.ready_position()
             time.sleep(dur)
+
+
+`
