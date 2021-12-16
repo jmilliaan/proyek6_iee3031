@@ -1,4 +1,3 @@
-`
 import serial.serialutil
 import serial
 import ssc32
