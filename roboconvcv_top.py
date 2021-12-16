@@ -20,6 +20,7 @@ if __name__ == '__main__':
 
     def listener():
         query = "SELECT * FROM command"
+        db.execute("USE Proyek6_IEE3031")
         while True:
             db.execute(query)
             db.print_c()
