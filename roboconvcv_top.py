@@ -15,7 +15,11 @@ if __name__ == '__main__':
     camera = PiCam()
     conveyor.start()
 
-    command = False
+    db.c.execute("USE Proyek6_IEE3031")
+    db.c.execute("SELECT * FROM command")
+    first_command = db.c.fetchall()
+    command = first_command[0][1]
+    sequence = first_command[0][2]
 
 
     def listener():
@@ -24,9 +28,11 @@ if __name__ == '__main__':
         while True:
             db.c.execute(query)
             command_post = db.c.fetchall()
-            print(command_post[0], type(command_post), type(command_post[0]))
-            time.sleep(0.3)
             global command
+            command = command_post[0][1]
+            global sequence
+            sequence = command_post[0][2]
+            time.sleep(0.3)
 
 
     def main_funct():
