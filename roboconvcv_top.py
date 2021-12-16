@@ -23,7 +23,8 @@ if __name__ == '__main__':
         db.execute("USE Proyek6_IEE3031")
         while True:
             db.execute(query)
-            db.print_c()
+            command_post = db.c.fetchall()
+            print(command_post[0], command_post[1], command_post[2])
             time.sleep(0.3)
             global command
 
