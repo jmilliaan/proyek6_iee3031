@@ -42,14 +42,10 @@ if __name__ == '__main__':
         magnitude = img.fast_sum_image(canny_diff)
         c_x, c_y = img.centroid(canny_diff)
 
-        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
-        cv2.line(canny_diff,
-                 (0, 0),
-                 (100, 100),
-                 (0, 0, 255), 5)
-
-        cv2.imshow("Difference Frame", canny_diff)
-        cv2.imshow("Canny Frame", img.canny_edges)
+        # cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
+        
+        # cv2.imshow("Difference Frame", canny_diff)
+        # cv2.imshow("Canny Frame", img.canny_edges)
 
         centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
         magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
