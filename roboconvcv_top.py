@@ -23,7 +23,6 @@ if __name__ == '__main__':
     prev_c_x, prev_c_y = 0, 0
     c_x, c_y = 0, 0
 
-
     robo_arm.reset_ready(2)
 
     for frame in camera.cam.capture_continuous(camera.raw_cap,
@@ -43,7 +42,7 @@ if __name__ == '__main__':
         c_x, c_y = img.centroid(canny_diff)
 
         # cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
-        
+
         # cv2.imshow("Difference Frame", canny_diff)
         # cv2.imshow("Canny Frame", img.canny_edges)
 
@@ -96,4 +95,3 @@ if __name__ == '__main__':
 
     cv2.destroyAllWindows()
     exit()
-
