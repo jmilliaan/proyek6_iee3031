@@ -89,6 +89,3 @@ class SSC32RoboticArm:
             time.sleep(dur)
             self.ready_position()
             time.sleep(dur)
-
-
-`
