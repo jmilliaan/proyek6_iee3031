@@ -1,16 +1,7 @@
-# import time
-import roboconvcv_constants as c
+from roboconvcv_database import DBConnection
 
-# from roboconvcv_ssc32 import SSC32RoboticArm
-#
-# ssc = SSC32RoboticArm(c.ssc32_serial_port, c.ssc32_baud_rate)
-#
-# while True:
-#     ssc.reset_ready(2)
-#     time.sleep(2)
-#     ssc.grab_position()
-#     time.sleep(2)
-#     ssc.drop_position()
-#     time.sleep(2)
-#     print("cycle done")
-print(c.cv_max_frame_difference)
+db = DBConnection()
+
+db.execute_commit("INSERT INTO command(command, sequence) VALUES(0, 1)")
+
+db.execute_commit("INSERT INTO command(command, sequence) VALUES(1, 2)")

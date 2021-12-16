@@ -5,16 +5,7 @@ from roboconvcv_database import DBConnection
 from roboconvcv_ssc32 import SSC32RoboticArm
 from roboconvcv_conveyor import ConveyorBelt
 import roboconvcv_constants as constants
-import threading as thread
-
-frame_count = 0
-reset_count = 0
-
-prev_img = []
-
-prev_c_x, prev_c_y = 0, 0
-c_x, c_y = 0, 0
-
+import threading
 
 if __name__ == '__main__':
     db = DBConnection()
@@ -24,84 +15,103 @@ if __name__ == '__main__':
     camera = PiCam()
     conveyor.start()
 
-    robo_arm.reset_ready(2)
+    command = False
 
-    # db.log_start_conv()
 
-    for frame in camera.cam.capture_continuous(camera.raw_cap,
-                                               format="bgr",
-                                               use_video_port=True):
-        img = Frame(frame.array)
+    def listener():
+        query = "SELECT * FROM command"
+        while True:
+            db.execute(query)
+            db.print_c()
+            time.sleep(0.3)
+            global command
 
-        if frame_count <= 1:
-            prev_img = Frame(frame.array)
 
-        if frame_count % constants.cv_frames_before_refresh == 0:
-            reset_count += 1
-            prev_img = Frame(frame.array)
+    def main_funct():
 
-        canny_diff = img.canny_difference(prev_img)
-        magnitude = img.fast_sum_image(canny_diff)
-        c_x, c_y = img.centroid(canny_diff)
+        frame_count = 0
+        reset_count = 0
 
-        cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
-        cv2.line(canny_diff,
-                 (0, 0),
-                 (100, 100),
-                 (0, 0, 255), 5)
+        prev_img = []
 
-        cv2.imshow("Difference Frame", canny_diff)
-        cv2.imshow("Canny Frame", img.canny_edges)
-        # cv2.imshow("Blur Frame", img.blurred)
-        centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
-        magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
-            cv_magnitude_upper_boundary
+        prev_c_x, prev_c_y = 0, 0
+        c_x, c_y = 0, 0
+        global command
+        print(f"Command: {command}")
+        if command:
+            robo_arm.reset_ready(2)
 
-        print(f"FRAME: {frame_count}")
-        print(f" > Movement Magnitude : {magnitude_size_condition} : ", end=" ")
-        print(f"{constants.cv_magnitude_lower_boundary} < {magnitude} < {constants.cv_magnitude_upper_boundary}")
-        print(f" > Centroid: {centroid_pos_condition} : ", end=" ")
-        print(f"{constants.cv_lower_bound} < "
-              f"{constants.cv_hard_lower_bound} < "
-              f"{c_x} < "
-              f"{constants.cv_hard_upper_bound} < "
-              f"{constants.cv_upper_bound}")
+            for frame in camera.cam.capture_continuous(camera.raw_cap,
+                                                       format="bgr",
+                                                       use_video_port=True):
+                img = Frame(frame.array)
 
-        if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
-            print(" >> close to center")
-            conveyor.change_dc(constants.conveyor_low_dc)
-            # db.log_slow_conv()
+                if frame_count <= 1:
+                    prev_img = Frame(frame.array)
 
-            if centroid_pos_condition and magnitude_size_condition:
-                print(" >>> at center", end=" ")
-                print(constants.cv_hard_lower_bound,
-                      c_x,
-                      constants.cv_hard_upper_bound)
-                conveyor.change_dc(constants.conveyor_stop_dc)
+                if frame_count % constants.cv_frames_before_refresh == 0:
+                    reset_count += 1
+                    prev_img = Frame(frame.array)
 
-                # db.log_stop_conv()
-                # db.log_ssc_take_item()
+                canny_diff = img.canny_difference(prev_img)
+                magnitude = img.fast_sum_image(canny_diff)
+                c_x, c_y = img.centroid(canny_diff)
 
-                time.sleep(0.5)
-                robo_arm.grab_drop_ready(1)
+                cv2.circle(canny_diff, (c_x, c_y), 5, (255, 255, 255), -1)
+                cv2.line(canny_diff,
+                         (0, 0),
+                         (100, 100),
+                         (0, 0, 255), 5)
 
-                magnitude = 0
-                c_x, c_y = 0, 0
+                cv2.imshow("Difference Frame", canny_diff)
+                cv2.imshow("Canny Frame", img.canny_edges)
+
+                centroid_pos_condition = constants.cv_hard_lower_bound < c_x < constants.cv_hard_upper_bound
+                magnitude_size_condition = constants.cv_magnitude_lower_boundary < magnitude < constants. \
+                    cv_magnitude_upper_boundary
+
+                print(f"FRAME: {frame_count}")
+                print(f" > Movement Magnitude : {magnitude_size_condition} : ", end=" ")
+                print(
+                    f"{constants.cv_magnitude_lower_boundary} < {magnitude} < {constants.cv_magnitude_upper_boundary}")
+                print(f" > Centroid: {centroid_pos_condition} : ", end=" ")
+                print(f"{constants.cv_lower_bound} < "
+                      f"{constants.cv_hard_lower_bound} < "
+                      f"{c_x} < "
+                      f"{constants.cv_hard_upper_bound} < "
+                      f"{constants.cv_upper_bound}")
+
+                if constants.cv_lower_bound < c_x < constants.cv_upper_bound:
+                    print(" >> close to center")
+                    conveyor.change_dc(constants.conveyor_low_dc)
+
+                    if centroid_pos_condition and magnitude_size_condition:
+                        print(" >>> at center", end=" ")
+                        print(constants.cv_hard_lower_bound,
+                              c_x,
+                              constants.cv_hard_upper_bound)
+                        conveyor.change_dc(constants.conveyor_stop_dc)
+
+                        time.sleep(0.5)
+                        robo_arm.grab_drop_ready(1)
+
+                        magnitude = 0
+                        c_x, c_y = 0, 0
+                        camera.raw_cap.truncate(0)
+                        time.sleep(0.5)
+                        continue
+
+                else:
+
+                    conveyor.change_dc(constants.conveyor_high_dc)
+
+                prev_c_x, prev_c_y = c_x, c_y
+
                 camera.raw_cap.truncate(0)
-                time.sleep(0.5)
-                continue
+                frame_count += 1
 
-        else:
-            # db.log_start_conv()
-            conveyor.change_dc(constants.conveyor_high_dc)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
 
-        prev_c_x, prev_c_y = c_x, c_y
-
-        camera.raw_cap.truncate(0)
-        frame_count += 1
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    cv2.destroyAllWindows()
-    exit()
+            cv2.destroyAllWindows()
+            exit()
