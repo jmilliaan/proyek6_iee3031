@@ -1,5 +1,5 @@
 import serial.serialutil
-
+import serial
 import ssc32
 import time
 
@@ -12,17 +12,25 @@ class SSC32RoboticArm:
         self.baud_rate = baud
         self.connected = False
         try:
-            self.ssc = ssc32.SSC32(self.serial_port, self.baud_rate)
+            self.ser = serial.Serial(self.serial_port, self.baud_rate, timeout=1)
             self.connected = True
         except serial.serialutil.SerialException:
-            print(f"Port {self.serial_port} not found.")
             self.connected = False
+            print(f"Serial port {self.serial_port} not found")
             pass
+        # try:
+        #     self.ssc = ssc32.SSC32(self.serial_port, self.baud_rate)
+        #     self.connected = True
+        # except serial.serialutil.SerialException:
+        #     print(f"Port {self.serial_port} not found.")
+        #     self.connected = False
+        #     pass
 
     def move_ssc(self, servo, pos, dur):
         if self.connected:
-            self.ssc[servo].position = pos
-            self.ssc.commit(time=dur)
+            self.ser.write(f"#{servo} P{pos} T{dur} <cr>")
+            # self.ssc.commit(time=dur)
+            # self.ssc[servo].position = pos
 
     def reset_position(self):
         if self.connected:
