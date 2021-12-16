@@ -22,9 +22,9 @@ if __name__ == '__main__':
         query = "SELECT * FROM command"
         db.execute("USE Proyek6_IEE3031")
         while True:
-            db.execute(query)
+            db.c.execute(query)
             command_post = db.c.fetchall()
-            print(command_post[0])
+            print(command_post[0], type(command_post), type(command_post[0]))
             time.sleep(0.3)
             global command
 
