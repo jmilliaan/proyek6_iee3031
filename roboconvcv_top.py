@@ -24,7 +24,7 @@ if __name__ == '__main__':
         while True:
             db.execute(query)
             command_post = db.c.fetchall()
-            print(command_post[0], command_post[1], command_post[2])
+            print(command_post[0])
             time.sleep(0.3)
             global command
 
