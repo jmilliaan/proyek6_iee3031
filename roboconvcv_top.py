@@ -115,3 +115,10 @@ if __name__ == '__main__':
 
             cv2.destroyAllWindows()
             exit()
+
+
+    print("meng")
+    threading.Thread(target=listener).start()
+    print("thread1")
+    threading.Thread(target=main_funct).start()
+    print("thread2")
